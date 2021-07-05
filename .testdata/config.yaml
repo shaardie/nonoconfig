@@ -1,0 +1,33 @@
+# Single Values
+single_string: single_string
+single_int: 42
+single_float: 3.141
+single_bool: true
+single_null: null
+
+# Maps
+map_null: {}
+map_string_to_int:
+  first: 1
+  second: 2
+  third: 3
+map_int_to_string:
+  1: first
+  2: second
+  3: third
+
+# Arrays
+array_null: []
+array_string:
+  - first
+  - second
+  - third
+
+# Structs
+struct:
+  MatchFieldName: true
+  need_a_tag: true
+  recursive:
+    first: 1
+    second: 2.0
+    third: true
