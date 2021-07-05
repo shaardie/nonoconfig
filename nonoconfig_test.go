@@ -213,7 +213,13 @@ func TestStruct(t *testing.T) {
 }
 
 func Example() {
-	nnc := NewNoNoConfig(".testdata/config.yaml")
+	// Creating a new config from a list of possible configuration files.
+	// First found configuration file is used.
+	nnc := NewNoNoConfig(
+		".testdata/does-not-exist.yaml",
+		".testdata/config.yaml",
+		".testdata/does-not-exist-either.yaml",
+	)
 
 	var s string
 	err := nnc.Config(&s, "single_string")
