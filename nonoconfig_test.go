@@ -213,7 +213,7 @@ func TestStruct(t *testing.T) {
 }
 
 func Example() {
-	nnc := NewNoNoConfig("./testdata/config.yaml")
+	nnc := NewNoNoConfig(".testdata/config.yaml")
 
 	var s string
 	err := nnc.Config(&s, "single_string")
