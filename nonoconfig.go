@@ -141,6 +141,9 @@ func recursiveReflection(in, out reflect.Value) error {
 		if in.Kind() != reflect.Map {
 			return fmt.Errorf("%v of type %v, not map", in, in.Kind())
 		}
+		if out.IsNil() {
+			out.Set(reflect.MakeMap(out.Type()))
+		}
 		iter := in.MapRange()
 		for iter.Next() {
 			key := reflect.New(out.Type().Key())
