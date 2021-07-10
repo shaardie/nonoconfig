@@ -225,7 +225,7 @@ func Example() {
 	// Output: *nonoconfig.noNoConfig
 }
 
-func ExampleConfig_NoNoConfig_simpleTypes() {
+func ExampleNoNoConfig_Config_simpleTypes() {
 	// Create new NoNoConfig
 	// File content:
 	// ```yaml
@@ -244,7 +244,7 @@ func ExampleConfig_NoNoConfig_simpleTypes() {
 	// Output: 3.141
 }
 
-func ExampleConfig_NoNoConfig_complexTypes() {
+func ExampleNoNoConfig_Config_complexTypes() {
 	// Create new NoNoConfig
 	// File content:
 	// ```yaml
