@@ -212,7 +212,7 @@ func TestStruct(t *testing.T) {
 
 }
 
-func Example() {
+func ExampleNewNoNoConfig() {
 	// Creating a new config from a list of possible configuration files.
 	// First found configuration file is used.
 	nnc := NewNoNoConfig(
@@ -225,7 +225,7 @@ func Example() {
 	// Output: *nonoconfig.noNoConfig
 }
 
-func ExampleNoNoConfig_Config_simple() {
+func ExamplenoNoConfig_config_simple() {
 	// Create new NoNoConfig
 	// File content:
 	// ```yaml
@@ -244,7 +244,7 @@ func ExampleNoNoConfig_Config_simple() {
 	// Output: 3.141
 }
 
-func ExampleNoNoConfig_Config_complex() {
+func ExamplenoNoConfig_Config_complex() {
 	// Create new NoNoConfig
 	// File content:
 	// ```yaml

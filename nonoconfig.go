@@ -54,6 +54,8 @@ type noNoConfig struct {
 	c  interface{}
 }
 
+// NewNoNoConfig creates a NoNoConfig from a list of possible configuration file.
+// First found configuration file will be used.
 func NewNoNoConfig(configFiles ...string) NoNoConfig {
 	return &noNoConfig{
 		fs: configFiles,
