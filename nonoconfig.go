@@ -10,8 +10,8 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// NoNoConfig is returned from the NewNoNoConfig and is the interface from
-// which config entries can be received via the `Config` function.
+// NoNoConfig is created by the NewNoNoConfig functions and contains
+// the method Config to receive arbitrary complex parts of the configuration.
 type NoNoConfig struct {
 	fs []string
 	c  interface{}
@@ -25,8 +25,9 @@ func NewNoNoConfig(configFiles ...string) *NoNoConfig {
 	}
 }
 
-// Config tries to store the config value found under the chain of keys in the variable `value` points to.
-// If anything goes wrong, an error should be return.
+// Config tries to store the config value found under the chain of keys in the
+// variable the parameter value points to. If anything goes wrong, an error
+// should be return.
 func (nnc *NoNoConfig) Config(value interface{}, keys ...interface{}) error {
 
 	out := reflect.ValueOf(value)
