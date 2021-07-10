@@ -225,12 +225,10 @@ func ExampleNewNoNoConfig() {
 	// Output: *nonoconfig.NoNoConfig
 }
 
-func ExampleNoNoConfig_config_simple() {
+func ExampleNoNoConfig_Config_simple() {
 	// Create new NoNoConfig
 	// File content:
-	// ```yaml
-	// single_float: 3.141
-	// ```
+	//   single_float: 3.141
 	nnc := NewNoNoConfig(".testdata/config.yaml")
 
 	// Get a float
@@ -247,18 +245,15 @@ func ExampleNoNoConfig_config_simple() {
 func ExampleNoNoConfig_Config_complex() {
 	// Create new NoNoConfig
 	// File content:
-	// ```yaml
-	// complex_type:
-	//   map:
-	//   first: 1
-	//   second: 2
-	//   third: 3
-	//   array:
-	//   - first
-	//   - second
-	//   - third
-	//   float: 3.141
-	// ```
+	//   complex_type:
+	//     map:
+	//       first: 1
+	//       second: 2
+	//       third: 3
+	//     array:
+	//       - first
+	//       - second
+	//       - third
 	nnc := NewNoNoConfig(".testdata/config.yaml")
 
 	// Contruct complex type with annotation with name mapping.
