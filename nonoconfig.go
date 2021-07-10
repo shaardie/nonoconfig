@@ -10,12 +10,24 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-type NoNoConfig interface {
-	Config(value interface{}, keys ...interface{}) error
+// NoNoConfig is returned from the NewNoNoConfig and is the interface from
+// which config entries can be received via the `Config` function.
+type NoNoConfig struct {
+	fs []string
+	c  interface{}
 }
 
-// Config is the implementation of the interface method.
-func (nnc *noNoConfig) Config(value interface{}, keys ...interface{}) error {
+// NewNoNoConfig creates a NoNoConfig from a list of possible configuration file.
+// First found configuration file will be used.
+func NewNoNoConfig(configFiles ...string) *NoNoConfig {
+	return &NoNoConfig{
+		fs: configFiles,
+	}
+}
+
+// Config tries to store the config value found under the chain of keys in the variable `value` points to.
+// If anything goes wrong, an error should be return.
+func (nnc *NoNoConfig) Config(value interface{}, keys ...interface{}) error {
 
 	out := reflect.ValueOf(value)
 	if out.Kind() != reflect.Ptr {
@@ -49,22 +61,9 @@ func (nnc *noNoConfig) Config(value interface{}, keys ...interface{}) error {
 	return recursiveReflection(v, out)
 }
 
-type noNoConfig struct {
-	fs []string
-	c  interface{}
-}
-
-// NewNoNoConfig creates a NoNoConfig from a list of possible configuration file.
-// First found configuration file will be used.
-func NewNoNoConfig(configFiles ...string) NoNoConfig {
-	return &noNoConfig{
-		fs: configFiles,
-	}
-}
-
 // configurationFile iterates over the configuration file canditates
 // and returns the first found file.
-func (nnc *noNoConfig) configurationFile() (string, error) {
+func (nnc *NoNoConfig) configurationFile() (string, error) {
 	for _, f := range nnc.fs {
 		stat, err := os.Stat(f)
 		if err != nil {
@@ -82,7 +81,7 @@ func (nnc *noNoConfig) configurationFile() (string, error) {
 }
 
 // updateConfig reads and parses the first found configuration file and stores it the struct.
-func (ncc *noNoConfig) updateConfig() error {
+func (ncc *NoNoConfig) updateConfig() error {
 	f, err := ncc.configurationFile()
 	if err != nil {
 		return fmt.Errorf("unable to determine configuration file, %w", err)

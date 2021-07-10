@@ -222,10 +222,10 @@ func ExampleNewNoNoConfig() {
 	)
 
 	fmt.Printf("%T", nnc)
-	// Output: *nonoconfig.noNoConfig
+	// Output: *nonoconfig.NoNoConfig
 }
 
-func ExamplenoNoConfig_config_simple() {
+func ExampleNoNoConfig_config_simple() {
 	// Create new NoNoConfig
 	// File content:
 	// ```yaml
@@ -244,7 +244,7 @@ func ExamplenoNoConfig_config_simple() {
 	// Output: 3.141
 }
 
-func ExamplenoNoConfig_Config_complex() {
+func ExampleNoNoConfig_Config_complex() {
 	// Create new NoNoConfig
 	// File content:
 	// ```yaml
