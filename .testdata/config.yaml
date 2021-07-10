@@ -31,3 +31,15 @@ struct:
     first: 1
     second: 2.0
     third: true
+
+# complexType
+complex_type:
+  map:
+    first: 1
+    second: 2
+    third: 3
+  array:
+    - first
+    - second
+    - third
+  float: 3.141

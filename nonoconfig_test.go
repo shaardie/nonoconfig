@@ -221,12 +221,59 @@ func Example() {
 		".testdata/does-not-exist-either.yaml",
 	)
 
-	var s string
-	err := nnc.Config(&s, "single_string")
+	fmt.Printf("%T", nnc)
+	// Output: *nonoconfig.noNoConfig
+}
+
+func ExampleConfig_NoNoConfig_simpleTypes() {
+	// Create new NoNoConfig
+	// File content:
+	// ```yaml
+	// single_float: 3.141
+	// ```
+	nnc := NewNoNoConfig(".testdata/config.yaml")
+
+	// Get a float
+	var f float64
+	err := nnc.Config(&f, "single_float")
 	if err != nil {
-		fmt.Println("Unable to get single_string, %w", err)
+		fmt.Println("Unable to get float, %w", err)
 		os.Exit(1)
 	}
-	fmt.Println(s)
-	// Output: single_string
+	fmt.Println(f)
+	// Output: 3.141
+}
+
+func ExampleConfig_NoNoConfig_complexTypes() {
+	// Create new NoNoConfig
+	// File content:
+	// ```yaml
+	// complex_type:
+	//   map:
+	//   first: 1
+	//   second: 2
+	//   third: 3
+	//   array:
+	//   - first
+	//   - second
+	//   - third
+	//   float: 3.141
+	// ```
+	nnc := NewNoNoConfig(".testdata/config.yaml")
+
+	// Contruct complex type with annotation with name mapping.
+	ct := struct {
+		Map   map[string]int `nonoconfig:"map"`
+		Array []string       `nonoconfig:"array"`
+		Float float64        `nonoconfig:"float"`
+	}{}
+
+	// Read data
+	err := nnc.Config(&ct, "complex_type")
+	if err != nil {
+		fmt.Println("Unable to get complex type, %w", err)
+		os.Exit(1)
+	}
+	fmt.Println(ct)
+	// Output: {map[first:1 second:2 third:3] [first second third] 3.141}
 }
