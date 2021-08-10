@@ -17,6 +17,10 @@ type NoNoConfig struct {
 	c  interface{}
 }
 
+func kindError(in, out reflect.Value) error {
+	return fmt.Errorf("unable to set %v of kind %v as %v", in, in.Kind(), out.Kind())
+}
+
 // NewNoNoConfig creates a NoNoConfig from a list of possible configuration file.
 // First found configuration file will be used.
 func NewNoNoConfig(configFiles ...string) *NoNoConfig {
@@ -132,12 +136,24 @@ func recursiveReflection(in, out reflect.Value) error {
 	case reflect.Interface:
 		out.Set(in)
 	case reflect.String:
+		if in.Kind() != reflect.String {
+			return kindError(in, out)
+		}
 		out.SetString(in.String())
 	case reflect.Float32, reflect.Float64:
+		if in.Kind() != reflect.Float32 && in.Kind() != reflect.Float64 {
+			return kindError(in, out)
+		}
 		out.SetFloat(in.Float())
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		if in.Kind() != reflect.Int && in.Kind() != reflect.Int8 && in.Kind() != reflect.Int16 && in.Kind() != reflect.Int32 && in.Kind() != reflect.Int64 {
+			return kindError(in, out)
+		}
 		out.SetInt(in.Int())
 	case reflect.Bool:
+		if in.Kind() != reflect.Bool {
+			return kindError(in, out)
+		}
 		out.SetBool(in.Bool())
 	case reflect.Map:
 		if in.Kind() != reflect.Map {

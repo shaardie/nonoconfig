@@ -99,6 +99,13 @@ func TestPrimitiveBool(t *testing.T) {
 	assert.Equal(t, true, singleBool)
 }
 
+func TestPrimitiveWrong(t *testing.T) {
+	nnc := NewNoNoConfig(".testdata/config.yaml")
+
+	var singleBool bool
+	assert.Error(t, nnc.Config(&singleBool, "single_int"))
+}
+
 func TestMapEmpty(t *testing.T) {
 	nnc := NewNoNoConfig(".testdata/config.yaml")
 
